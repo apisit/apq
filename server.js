@@ -9,8 +9,6 @@ app.get('/hello.txt', function(req, res){
 });
 
 
-
-
 app.get('/:searchIndex/:query',function(req,res){
 
 var fs=require('fs');
@@ -45,9 +43,9 @@ opHelper.execute('ItemSearch', {
 
 //console.log(count);
 var itemTemplate = "<div class=\"box photo\" title=\"{alt}\"><a  href=\"http://www.amazon.com/dp/{asin}?tag=apmo0d-20\"><img src=\"{image}\"/><p>{text}</p></a></div>";
- for(i =0;i<10;i++){
+if results.ItemSearchResponse.Items!=null){
+for(i =0;i<10;i++){
 	//htmlResult+=results.ItemSearchResponse.Items[0].Item[i].ASIN +"<br/>";
-
  	htmlResult+=itemTemplate.replace("{text}", results.ItemSearchResponse.Items[0].Item[i].ItemAttributes[0].Title);
  	htmlResult=htmlResult.replace("{alt}", results.ItemSearchResponse.Items[0].Item[i].ItemAttributes[0].Title);
  	htmlResult=htmlResult.replace("{asin}", results.ItemSearchResponse.Items[0].Item[i].ASIN);
@@ -62,8 +60,8 @@ var itemTemplate = "<div class=\"box photo\" title=\"{alt}\"><a  href=\"http://w
 	// price =results.ItemSearchResponse.Items[0].Item[i].OfferSummary[0].LowestNewPrice[0].FormattedPrice;
 	// htmlResult+=price +"<br/>";
  	//htmlResult+=results.ItemSearchResponse.Items[0].Item[i].ItemAttributes[0].ListPrice;
+ }//end for loop
  }
- 
 
 fs.readFile('template.html', 'utf8', function (err,data) {
   if (err) {
