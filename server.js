@@ -39,11 +39,11 @@ opHelper.execute('ItemSearch', {
   //  sys.print("Results:\n" + results.ItemSearchResponse.Items[0] + "\n");
 //console.log(results.ItemSearchResponse.Items[0].Item[0].ASIN);
 
-//var count =results.ItemSearchResponse.Items[0].TotalResults;
+var count =results.ItemSearchResponse.Items[0].TotalResults;
 
-//console.log(count);
+
 var itemTemplate = "<div class=\"box photo\" title=\"{alt}\"><a  href=\"http://www.amazon.com/dp/{asin}?tag=apmo0d-20\"><img src=\"{image}\"/><p>{text}</p></a></div>";
-if (results.ItemSearchResponse.Items[0]!=null){
+if (count>0){
 for(i =0;i<10;i++){
 	//htmlResult+=results.ItemSearchResponse.Items[0].Item[i].ASIN +"<br/>";
  	htmlResult+=itemTemplate.replace("{text}", results.ItemSearchResponse.Items[0].Item[i].ItemAttributes[0].Title);
@@ -61,6 +61,9 @@ for(i =0;i<10;i++){
 	// htmlResult+=price +"<br/>";
  	//htmlResult+=results.ItemSearchResponse.Items[0].Item[i].ItemAttributes[0].ListPrice;
  }//end for loop
+ }else{
+htmlResult= results.ItemSearchResponse.Items[0].Request[0].Errors[0].Error[0].Message;
+
  }
 
 fs.readFile('template.html', 'utf8', function (err,data) {
