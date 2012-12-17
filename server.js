@@ -44,7 +44,7 @@ opHelper.execute('ItemSearch', {
 //var count =results.ItemSearchResponse.Items[0].TotalResults;
 
 //console.log(count);
-var itemTemplate = "<div class=\"box photo\" title=\"{text}\""><a  href=\"http://www.amazon.com/dp/{asin}?tag=apmo0d-20\"><img src=\"{image}\"/><p>{text}</p></a></div>";
+var itemTemplate = "<div class=\"box photo\" title=\"{text}\"><a  href=\"http://www.amazon.com/dp/{asin}?tag=apmo0d-20\"><img src=\"{image}\"/><p>{text}</p></a></div>";
  for(i =0;i<10;i++){
 	//htmlResult+=results.ItemSearchResponse.Items[0].Item[i].ASIN +"<br/>";
 
