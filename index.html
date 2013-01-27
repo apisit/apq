@@ -3,9 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Amazon product search</title>
-
-</head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://masonry.desandro.com/jquery.masonry.min.js"></script>
+
 
 <style>
 *{
@@ -78,29 +78,91 @@ text-align: center;
   position:relative;
   top:1px;
 }
+
+
+.item {
+  width: 220px;
+  margin: 10px;
+  float: left;
+}
+
+
+.box {
+  margin: 5px;
+  padding: 5px;
+  background: #FDFAF8;
+  font-size: 11px;
+  line-height: 1.4em;
+  float: left;
+  border-radius: 5px;
+  width:200px;
+}
+
+
+.box img{
+  display: block;
+  width: 200px;
+}
+
+
 </style>
+
+
+
 <script>
+
+
 $(document).ready(function() {
-  var btnSearch = document.getElementById("btnSearch");
-   btnSearch.onclick=function(){
-   var category = document.getElementById("category").value;
-    var keyword = document.getElementById("txtKeyword").value;
-$('.result').load("http://ec2-54-235-252-33.compute-1.amazonaws.com:3000/"+ category + "/" + keyword, function() {
-  alert('Load was performed.');
+var current=1;
+function loadProduct(url,page){
+  if (current<=10){
+       $.get(escape(url) + "?p=" + page, function(data) {
+          if (data.length>0){
+              $('#container').append(unescape(data)).masonry("reload");
+              current++;
+              loadProduct(url,current);
+          }
+
+        });
+  }else{
+    current=1;
+  }
+
+}
+
+$('#container').masonry({
+  isAnimated: true
 });
+  var btnSearch = document.getElementById("btnSearch");
+  btnSearch.onclick=function(){
+    var category = document.getElementById("category").value;
+    var keyword = document.getElementById("txtKeyword").value;
+ $('#container').html('');
+ 
+ loadProduct(escape(category + "/" + keyword),1);
 
+  // console.log(escape(category + "/" + keyword) + "?p=" + i);
+  //   $.get(escape(category + "/" + keyword) + "?p=" + i, function(data) {
+  //   $('#container').append(data);
 
+  //     $('#container').masonry("reload");
+  // });
 
- }
+   
+  
+
+}
+  
 
 });
 
 </script>
+</head>
 <body>
 
 <div id="searchform">
 <select id="category">
-<option>All</option>
+<!-- <option>All</option> -->
 <option>Apparel</option>
 <option>Appliances</option>
 <option>ArtsAndCrafts</option>
@@ -152,9 +214,7 @@ $('.result').load("http://ec2-54-235-252-33.compute-1.amazonaws.com:3000/"+ cate
   <input type="text" id="txtKeyword" placeholder="Your keyword">
 <input type="button" class="button" id="btnSearch" value="Search">
 </div>
-
-	<div id="result">
-
-	</div>
+<br/>
+	<div id="container"/>
 </body>
 </html>
