@@ -29,8 +29,8 @@ var sys = require('sys'),
 
 
 var opHelper = new OperationHelper({
-    awsId:     '',
-    awsSecret: '',
+    awsId:     'AKIAIZD5DU5726UQ4S5Q',
+    awsSecret: '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',
     assocId:   'apmo0d-20',
 });
 var searchtime =  Date.now();
