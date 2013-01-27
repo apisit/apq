@@ -126,7 +126,13 @@ function loadProduct(url,page){
         });
   }else{
     current=1;
-    $('#container').masonry("reload");
+    var $container = $('#container');
+    $container.imagesLoaded( function(){
+      $container.masonry({
+        itemSelector : '.box'
+      });
+    });
+    //$('#container').masonry("reload");
   }
 
 }
