@@ -9,6 +9,10 @@ app.get('/hello.txt', function(req, res){
 });
 
 
+
+
+
+
 app.get('/:searchIndex/:query',function(req,res){
 
 var fs=require('fs');
@@ -24,26 +28,28 @@ var opHelper = new OperationHelper({
     awsSecret: 'IuFejUl1iyQ1jVgLDpI+8gX3vilYnLhUuDoD9CQB',
     assocId:   'apmo0d-20',
 });
-
-
-
+var searchtime =  Date.now();
+console.log(searchtime  + " " + req.params.query);
 
 opHelper.execute('ItemSearch', {
     'SearchIndex': req.params.searchIndex,
     'Keywords': req.params.query,
-    'ResponseGroup': 'Large'//,
-   // 'ItemPage':'0'
+    'ResponseGroup': 'Large',
+    'ItemPage':req.query["p"]==null?1:req.query["p"]
 }, function(error, results) {
     if (error) { sys.print('Error: ' + error + "\n") }
     var htmlResult="";
   //  sys.print("Results:\n" + results.ItemSearchResponse.Items[0] + "\n");
-//console.log(results.ItemSearchResponse.Items[0].Item[0].ASIN);
+// console.log(results.ItemSearchResponse.Items[0].TotalPages);
+// console.log(results.ItemSearchResponse.Items[0].MoreSearchResultsUrl);
 
-var count =results.ItemSearchResponse.Items[0].TotalResults;
-
+ var count =results.ItemSearchResponse.Items[0].TotalResults;
+//console.log(count);
 
 var itemTemplate = "<div class=\"box photo\" title=\"{alt}\"><a  href=\"http://www.amazon.com/dp/{asin}?tag=apmo0d-20\"><img src=\"{image}\"/><p>{text}</p></a></div>";
 if (count>0){
+
+
 for(i =0;i<10;i++){
 	//htmlResult+=results.ItemSearchResponse.Items[0].Item[i].ASIN +"<br/>";
  	htmlResult+=itemTemplate.replace("{text}", results.ItemSearchResponse.Items[0].Item[i].ItemAttributes[0].Title);
