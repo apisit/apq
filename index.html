@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Amazon product search</title>
+
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+<style>
+*{
+	font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	font-weight:300;
+	font-size: 16px;
+	color:#333;
+	
+}
+
+.item {
+  width: 220px;
+  margin: 10px;
+  float: left;
+}
+
+
+
+
+input[type=text]{
+ border: 1px solid lightgray; 
+height: 23px;
+font-size: 1.5em;
+padding: 10px;
+width: 250px;
+}
+
+select{
+   background: transparent;
+   width: 200px;
+   padding: 5px;  
+   font-size: 1.25em;
+   height: 45px;
+}
+
+
+body{
+width:90%;
+margin:0 auto;	
+padding-top: 50px;
+}
+#searchform{
+text-align: center;
+
+}
+.button {
+  -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+  box-shadow:inset 0px 1px 0px 0px #ffffff;
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+  background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+  background-color:#ededed;
+  -moz-border-radius:6px;
+  -webkit-border-radius:6px;
+  border-radius:6px;
+  border:1px solid #dcdcdc;
+  display:inline-block;
+  color:#777777;
+  font-size:1.5em;
+  padding:6px 24px;
+  text-decoration:none;
+  text-shadow:1px 1px 0px #ffffff;
+}.button:hover {
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+  background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+  background-color:#dfdfdf;
+}.button:active {
+  position:relative;
+  top:1px;
+}
+</style>
+<script>
+$(document).ready(function() {
+  var btnSearch = document.getElementById("btnSearch");
+   btnSearch.onclick=function(){
+   var category = document.getElementById("category").value;
+    var keyword = document.getElementById("txtKeyword").value;
+$('.result').load("http://ec2-54-235-252-33.compute-1.amazonaws.com:3000/"+ category + "/" + keyword, function() {
+  alert('Load was performed.');
+});
+
+
+
+ }
+
+});
+
+</script>
+<body>
+
+<div id="searchform">
+<select id="category">
+<option>All</option>
+<option>Apparel</option>
+<option>Appliances</option>
+<option>ArtsAndCrafts</option>
+<option>Automotive</option>
+<option>Baby</option>
+<option>Beauty</option>
+<option>Blended</option>
+<option>Books</option>
+<option>Classical</option>
+<option>Collectibles</option>
+<option>DigitalMusic</option>
+<option>Grocery</option>
+<option>DVD</option>
+<option>Electronics</option>
+<option>HealthPersonalCare</option>
+<option>HomeGarden</option>
+<option>Industrial</option>
+<option>Jewelry</option>
+<option>KindleStore</option>
+<option>Kitchen</option>
+<option>LawnAndGarden</option>
+<option>Magazines</option>
+<option>Marketplace</option>
+<option>Merchants</option>
+<option>Miscellaneous</option>
+<option>MobileApps</option>
+<option>MP3Downloads</option>
+<option>Music</option>
+<option>MusicalInstruments</option>
+<option>MusicTracks</option>
+<option>OfficeProducts</option>
+<option>OutdoorLiving</option>
+<option>PCHardware</option>
+<option>PetSupplies</option>
+<option>Photo</option>
+<option>Shoes</option>
+<option>Software</option>
+<option>SportingGoods</option>
+<option>Tools</option>
+<option>Toys</option>
+<option>UnboxVideo</option>
+<option>VHS</option>
+<option>Video</option>
+<option>VideoGames</option>
+<option>Watches</option>
+<option>Wireless</option>
+<option>WirelessAccessories</option>
+</select>
+  <input type="text" id="txtKeyword" placeholder="Your keyword">
+<input type="button" class="button" id="btnSearch" value="Search">
+</div>
+
+	<div id="result">
+
+	</div>
+</body>
+</html>
